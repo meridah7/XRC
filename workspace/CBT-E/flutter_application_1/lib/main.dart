@@ -27,7 +27,6 @@ class Content {
   final List<String>? choices;
   final bool auto;
   bool showChoices;
-  String displayText = "";
 
   Content({
     required this.text,
@@ -64,33 +63,16 @@ class _ChatbotPageState extends State<ChatbotPage> {
     _displayNextContent();
   }
 
-  void _displayNextContent() {
+void _displayNextContent() {
   if (_currentContentIndex < contents.length) {
-    Content currentContent = contents[_currentContentIndex];
-
-    int charIndex = 0;
-    Timer.periodic(Duration(milliseconds: 50), (timer) { // <-- change the duration for faster/slower effect
-      if (charIndex < currentContent.text.length) {
-        setState(() {
-          currentContent.displayText += currentContent.text[charIndex];
-        });
-        charIndex++;
-      } else {
-        timer.cancel();
-        if (currentContent.auto) {
-          Future.delayed(Duration(seconds: 1), () {
-            _currentContentIndex++;
-            _displayNextContent();
-          });
-        } else if (currentContent.choices != null) {
-          Future.delayed(Duration(seconds: 1), () {
-            setState(() {}); // To trigger a rebuild for showing choices
-          });
-        }
-      }
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        messages.add(ChatMessage(text: contents[_currentContentIndex].text, isUser: false));
+      });
     });
   }
 }
+
 
 
   @override
@@ -102,23 +84,40 @@ class _ChatbotPageState extends State<ChatbotPage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                final message = messages[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      message.isUser ? Icon(Icons.person) : Icon(Icons.android),
-                      SizedBox(width: 10),
-                      Expanded(child: Text(message.text, style: TextStyle(fontSize: 20, color: message.isUser ? Colors.blue : Colors.black))),
-                    ],
-                  ),
-                );
-              },
+  child: ListView.builder(
+    itemCount: messages.length,
+    itemBuilder: (context, index) {
+      final message = messages[index];
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            message.isUser ? Icon(Icons.person) : Icon(Icons.android),
+            SizedBox(width: 10),
+            Expanded(
+              child: TypeWriterText(
+                message.text, // 这里使用message.text而不是contents[_currentContentIndex].text
+                duration: Duration(milliseconds: 50), 
+                style: TextStyle(fontSize: 20),
+                onComplete: () {
+                  if (contents[_currentContentIndex].auto) {
+                    _currentContentIndex++;
+                    _displayNextContent();
+                  } else if (!contents[_currentContentIndex].auto && contents[_currentContentIndex].choices != null) {
+                    setState(() {
+                      contents[_currentContentIndex].showChoices = true;
+                    });
+                  }
+                },
+              )
             ),
-          ),
+          ],
+        ),
+      );
+    },
+  ),
+),
+
           if (_currentContentIndex < contents.length && contents[_currentContentIndex].showChoices && contents[_currentContentIndex].choices != null)
             ...contents[_currentContentIndex].choices!.map((choice) {
               return ElevatedButton(
@@ -128,12 +127,62 @@ class _ChatbotPageState extends State<ChatbotPage> {
                     contents[_currentContentIndex].showChoices = false;
                   });
                   _currentContentIndex++;
-                  _displayNextContent();
+                  
                 },
                 child: Text(choice),
               );
             }).toList(),
         ],
+      ),
+    );
+  }
+}
+
+class TypeWriterText extends StatefulWidget {
+  final String text;
+  final Duration duration;
+  final TextStyle? style;
+  final VoidCallback? onComplete;
+
+   TypeWriterText(this.text, {this.style, this.duration = const Duration(milliseconds: 50), this.onComplete}); // 更新这一行
+
+
+  @override
+  _TypeWriterTextState createState() => _TypeWriterTextState();
+}
+
+class _TypeWriterTextState extends State<TypeWriterText> {
+  String _displayedString = '';
+  int _currentCharIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(widget.duration, _displayNextCharacter);
+  }
+
+  void _displayNextCharacter() {
+  if (_currentCharIndex < widget.text.length) {
+    setState(() {
+      _displayedString += widget.text[_currentCharIndex];
+      _currentCharIndex++;
+    });
+    Future.delayed(widget.duration, _displayNextCharacter);
+  } else {
+    if (widget.onComplete != null) {
+      widget.onComplete!();
+    }
+  }
+}
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      _displayedString,
+      style: widget.style ?? TextStyle(
+        fontSize: 24.0,
+        fontWeight: FontWeight.w600,
       ),
     );
   }

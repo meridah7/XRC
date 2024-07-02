@@ -1,0 +1,82 @@
+{
+  "modelName": "master3_d_object_model",
+  "name": "YQWafoLhSdS22PHjiUVq_w_97b77a96616142faa73a523583cf16f1_dolphin",
+  "identifier": "master3_d_object_model:317-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+  "sourceIdentifier": "asset_collection_model:321-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+  "animationMask": {
+    "position": false,
+    "rotation": false,
+    "scale": false
+  },
+  "cameraVisibility": "back|front",
+  "depth": 0.023714985698461533,
+  "globalScaleFactor": 1,
+  "height": 0.03203076496720314,
+  "hidden": false,
+  "outputVisibility": "preview|capture",
+  "physicsEnabled": false,
+  "tags": [],
+  "transform": {
+    "rx": 0,
+    "ry": 0,
+    "rz": 0,
+    "sx": 1,
+    "sy": 1,
+    "sz": 1,
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "width": 0.04933110624551773,
+  "children": [
+    {
+      "modelName": "mesh",
+      "name": "dolphin",
+      "identifier": "mesh:307-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+      "animationMask": {
+        "position": false,
+        "rotation": false,
+        "scale": false
+      },
+      "cameraVisibility": "back|front",
+      "castShadow": false,
+      "hidden": false,
+      "nodeName": "dolphin",
+      "numberOfFaces": 1284,
+      "outputVisibility": "preview|capture",
+      "physicsEnabled": false,
+      "prefabIdentifier": "gltf:311-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+      "receiveShadow": false,
+      "renderPass": "main_scene",
+      "tags": [],
+      "transform": {
+        "rx": -3.141592502593994,
+        "ry": 3.8941439584050386E-7,
+        "rz": -3.141592502593994,
+        "sx": 1.777999997138977,
+        "sy": 1.777999997138977,
+        "sz": 1.777999997138977,
+        "x": -0.007862813770771027,
+        "y": 0.011094286106526852,
+        "z": 0.003644106676802039
+      },
+      "useEmbeddedBlendshapes": false,
+      "children": [
+        {
+          "modelName": "surfaces",
+          "identifier": "surfaces:309-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+          "children": [
+            {
+              "modelName": "surface",
+              "name": "surface0",
+              "identifier": "surface:314-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+              "isMaterialIdentifierEnabled": true,
+              "materialIdentifier": "dependent_material_model:301-bbe15b53-55f5-4196-ac09-23596c6da0b7",
+              "surfaceGroupIdentifier": "315-bbe15b53-55f5-4196-ac09-23596c6da0b7"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

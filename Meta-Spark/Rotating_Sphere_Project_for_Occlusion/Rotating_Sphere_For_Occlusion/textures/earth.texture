@@ -1,0 +1,36 @@
+{
+  "modelName": "texture",
+  "name": "earth",
+  "identifier": "texture:320513-a26ee919-55ec-4d3b-9475-e3570243b299",
+  "alphaPremultiplicationMode": "should_premultiply",
+  "assetDataHash": "de87c75c9daae74e6289d566fe116f99",
+  "assetLocator": "textures/earth.jpg",
+  "colorEncoding": "linear",
+  "compressionQuality": "high",
+  "coordMapping": "none",
+  "excludeDuringExport": false,
+  "excludeFromPackage": false,
+  "filter": "bilinear",
+  "hasOfflineMipmaps": false,
+  "height": 512,
+  "importIssues": {},
+  "isExternalAsset": true,
+  "smartTextureTargetSizeLimit": "largest",
+  "targetSize": "largest",
+  "uWrapMode": "clamp",
+  "vWrapMode": "clamp",
+  "width": 1024,
+  "children": [
+    {
+      "modelName": "data_texture_metadata_model",
+      "name": "data_texture_metadata_model0",
+      "assetDataHash": "de87c75c9daae74e6289d566fe116f99",
+      "colorCount": 43459,
+      "detectedAlphaChannel": "no_alpha",
+      "detectedOriginalFormat": "jpeg",
+      "entropyOfDistribution": 9.587075573665114,
+      "pixelsHigh": 512,
+      "pixelsWide": 1024
+    }
+  ]
+}
